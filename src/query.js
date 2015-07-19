@@ -37,6 +37,8 @@ define(['jquery', 'jquery-deparam'],
 
             //todo: handle array value... for
 
+            self.removeParam(name);
+
             self.__query += (getQueryStringDelimiter(self) + name + '=' + encodeURIComponent(value));
 
             deparam(self);
@@ -46,7 +48,7 @@ define(['jquery', 'jquery-deparam'],
             var self = this;
 
             var prefix = encodeURIComponent(paramName) + '=';
-            var pars = self.__query[1].split(/[&;]/g);
+            var pars = self.__query.split(/[&;]/g);
 
             //reverse iteration as may be destructive
             for (var i = pars.length; i-- > 0;) {
