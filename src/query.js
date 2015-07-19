@@ -42,6 +42,8 @@ define(['jquery', 'jquery-deparam'],
             self.__query += (getQueryStringDelimiter(self) + name + '=' + encodeURIComponent(value));
 
             deparam(self);
+
+            return self;
         };
 
         Query.prototype.removeParam = function(paramName) {
@@ -65,6 +67,8 @@ define(['jquery', 'jquery-deparam'],
             self.__query = '';
 
             deparam(self);
+
+            return self;
         };
 
         function getQueryStringDelimiter(self) {

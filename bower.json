@@ -5,7 +5,7 @@
     "Maxime Séguin"
   ],
   "description": "Url query helper based on jquery-deparam.",
-  "main": "",
+  "main": "src/query.js",
   "moduleType": [
     "amd"
   ],
