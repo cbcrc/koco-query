@@ -1,0 +1,19 @@
+{
+  "name": "koco-query",
+  "version": "0.1.0",
+  "description": "Url query helper based on jquery-deparam.",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cbcrc/koco-query.git"
+  },
+  "author": "Maxime Séguin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cbcrc/koco-query/issues"
+  },
+  "homepage": "https://github.com/cbcrc/koco-query"
+}
