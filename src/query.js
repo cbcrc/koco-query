@@ -12,7 +12,7 @@ define(['jquery', 'jquery-deparam'],
             var xUrl = url || '';
 
             var urlParts = xUrl.split('?');
-            //self.url = urlParts[0];
+            self.__url = urlParts[0];
 
             self.__query = '';
             self.params = {};
@@ -28,18 +28,24 @@ define(['jquery', 'jquery-deparam'],
             return this.__query;
         };
 
+        Query.prototype.url = function() {
+            return this.__url + '?' + this.__query;
+        };
+
         Query.prototype.setParam = function(name, value) {
             var self = this;
+
+            //todo: handle array value... for
 
             self.__query += (getQueryStringDelimiter(self) + name + '=' + encodeURIComponent(value));
 
             deparam(self);
         };
 
-        Query.prototype.removeURLParameter = function(parameterName) {
+        Query.prototype.removeParam = function(paramName) {
             var self = this;
 
-            var prefix = encodeURIComponent(parameterName) + '=';
+            var prefix = encodeURIComponent(paramName) + '=';
             var pars = self.__query[1].split(/[&;]/g);
 
             //reverse iteration as may be destructive
@@ -51,7 +57,7 @@ define(['jquery', 'jquery-deparam'],
             }
 
             if (pars.length) {
-                self.__query = '?' + pars.join('&');
+                self.__query = pars.join('&');
             }
 
             self.__query = '';
@@ -64,7 +70,7 @@ define(['jquery', 'jquery-deparam'],
                 return '&';
             }
 
-            return '?';
+            return '';
         }
 
         function deparam(self) {
