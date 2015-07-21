@@ -31,7 +31,7 @@ define(['jquery', 'jquery-deparam'],
         Query.prototype.url = function() {
             var self = this;
 
-            if(self.params.length){
+            if(Object.keys(self.params).length){
                 return this.__url + '?' + this.__query;
             }
 
@@ -78,7 +78,7 @@ define(['jquery', 'jquery-deparam'],
         };
 
         function getQueryStringDelimiter(self) {
-            if (self.params.length) {
+            if (Object.keys(self.params).length) {
                 return '&';
             }
 
