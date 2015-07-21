@@ -29,7 +29,13 @@ define(['jquery', 'jquery-deparam'],
         };
 
         Query.prototype.url = function() {
-            return this.__url + '?' + this.__query;
+            var self = this;
+
+            if(self.params.length){
+                return this.__url + '?' + this.__query;
+            }
+
+            return this.__url;
         };
 
         Query.prototype.setParam = function(name, value) {
