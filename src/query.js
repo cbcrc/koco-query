@@ -70,8 +70,6 @@ define(['jquery', 'jquery-deparam'],
                 self.__query = pars.join('&');
             }
 
-            self.__query = '';
-
             deparam(self);
 
             return self;
