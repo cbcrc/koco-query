@@ -8,7 +8,7 @@ define(['jquery', 'jquery-deparam'],
         var Query = function(url, options) {
             var self = this;
 
-            self.options = options || {};
+            self.options = options || { coerce: true };
             var xUrl = url || '';
 
             var urlParts = xUrl.split('?');
