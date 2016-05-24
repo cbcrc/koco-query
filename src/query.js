@@ -1,95 +1,96 @@
 // Copyright (c) CBC/Radio-Canada. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-define(['jquery', 'jquery-deparam'],
-    function($, jQueryDeparam) {
-        'use strict';
+import $ from 'jquery';
+import jQueryDeparam from 'jquery-deparam';
 
-        var Query = function(url, options) {
-            var self = this;
 
-            self.options = options || { coerce: true };
-            var xUrl = url || '';
+var Query = function(url, options) {
+    var self = this;
 
-            var urlParts = xUrl.split('?');
-            self.__url = urlParts[0];
+    self.options = options || {
+        coerce: true
+    };
+    var xUrl = url || '';
 
-            self.__query = '';
-            self.params = {};
+    var urlParts = xUrl.split('?');
+    self.__url = urlParts[0];
 
-            if (urlParts.length > 1) {
-                self.__query = urlParts[1];
-            }
+    self.__query = '';
+    self.params = {};
 
-            deparam(self);
-        };
+    if (urlParts.length > 1) {
+        self.__query = urlParts[1];
+    }
 
-        Query.prototype.toString = function() {
-            return this.__query;
-        };
+    deparam(self);
+};
 
-        Query.prototype.url = function() {
-            var self = this;
+Query.prototype.toString = function() {
+    return this.__query;
+};
 
-            if(Object.keys(self.params).length){
-                return this.__url + '?' + this.__query;
-            }
+Query.prototype.url = function() {
+    var self = this;
 
-            return this.__url;
-        };
+    if (Object.keys(self.params).length) {
+        return this.__url + '?' + this.__query;
+    }
 
-        Query.prototype.setParam = function(name, value) {
-            var self = this;
+    return this.__url;
+};
 
-            //todo: handle array value... for
+Query.prototype.setParam = function(name, value) {
+    var self = this;
 
-            self.removeParam(name);
+    //todo: handle array value... for
 
-            self.__query += (getQueryStringDelimiter(self) + name + '=' + encodeURIComponent(value));
+    self.removeParam(name);
 
-            deparam(self);
+    self.__query += (getQueryStringDelimiter(self) + name + '=' + encodeURIComponent(value));
 
-            return self;
-        };
+    deparam(self);
 
-        Query.prototype.removeParam = function(paramName) {
-            var self = this;
+    return self;
+};
 
-            var prefix = encodeURIComponent(paramName) + '=';
-            var pars = self.__query.split(/[&;]/g);
+Query.prototype.removeParam = function(paramName) {
+    var self = this;
 
-            //reverse iteration as may be destructive
-            for (var i = pars.length; i-- > 0;) {
-                //idiom for string.startsWith
-                if (pars[i].lastIndexOf(prefix, 0) !== -1) {
-                    pars.splice(i, 1);
-                }
-            }
+    var prefix = encodeURIComponent(paramName) + '=';
+    var pars = self.__query.split(/[&;]/g);
 
-            if (pars.length) {
-                self.__query = pars.join('&');
-            }
-
-            deparam(self);
-
-            return self;
-        };
-
-        function getQueryStringDelimiter(self) {
-            if (Object.keys(self.params).length) {
-                return '&';
-            }
-
-            return '';
+    //reverse iteration as may be destructive
+    for (var i = pars.length; i-- > 0;) {
+        //idiom for string.startsWith
+        if (pars[i].lastIndexOf(prefix, 0) !== -1) {
+            pars.splice(i, 1);
         }
+    }
 
-        function deparam(self) {
-            if (self.__query) {
-                self.params = jQueryDeparam(self.__query, self.options.coerce);
-            } else {
-                self.params = {};
-            }
-        }
+    if (pars.length) {
+        self.__query = pars.join('&');
+    }
 
-        return Query;
-    });
+    deparam(self);
+
+    return self;
+};
+
+function getQueryStringDelimiter(self) {
+    if (Object.keys(self.params).length) {
+        return '&';
+    }
+
+    return '';
+}
+
+function deparam(self) {
+    if (self.__query) {
+        self.params = jQueryDeparam(self.__query, self.options.coerce);
+    } else {
+        self.params = {};
+    }
+}
+
+export default Query;
