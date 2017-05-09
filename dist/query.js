@@ -79,6 +79,12 @@
         return self;
     };
 
+    Query.prototype.hasParam = function (name) {
+        var self = this;
+
+        return self.params[name] !== undefined;
+    };
+
     Query.prototype.removeParam = function (paramName) {
         var self = this;
 
